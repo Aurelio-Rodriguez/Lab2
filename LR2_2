@@ -1,0 +1,40 @@
+def navigate_file():
+    """Allows the user to navigate through lines of text in a file."""
+    try:
+        # Prompt the user for the filename
+        file_name = input("Enter the filename: ")
+        
+        # Read the file and store lines in a list
+        with open(file_name, 'r') as file:
+            lines = file.readlines()
+
+        # Check if the file is empty
+        if not lines:
+            print("The file is empty.")
+            return
+
+        while True:
+            # Print the number of lines in the file
+            print(f"The file contains {len(lines)} lines.")
+            
+            # Prompt the user for a line number
+            try:
+                line_number = int(input("Enter a line number (0 to quit): "))
+
+                # Exit if the user inputs 0
+                if line_number == 0:
+                    print("Exiting the program.")
+                    break
+
+                # Validate the line number
+                if 1 <= line_number <= len(lines):
+                    print(f"Line {line_number}: {lines[line_number - 1].strip()}")
+                else:
+                    print("Invalid line number. Please try again.")
+            except ValueError:
+                print("Invalid input. Please enter a valid line number.")
+    except FileNotFoundError:
+        print("Error: File not found. Please check the filename and try again.")
+
+if __name__ == "__main__":
+    navigate_file()
